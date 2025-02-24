@@ -73,8 +73,12 @@ class Counter with ChangeNotifier {
   notifyListeners();
 }
 
+  Color getProgressColor() {
+    if (value <= 33) return Colors.green;
+    if (value <= 67) return Colors.yellow;
+    return Colors.red;
 }
-
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -118,6 +122,15 @@ class MyHomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
                 ),
                 const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: LinearProgressIndicator(
+                    value: counter.value / 99, // Normalize age (0 to 1)
+                    backgroundColor: Colors.grey[300],
+                    valueColor: AlwaysStoppedAnimation(counter.getProgressColor()),
+                  ),
+                ),
+                const SizedBox(height: 20),
                 Slider(
                   value: counter.value.toDouble(),
                   min: 0,
@@ -146,4 +159,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
