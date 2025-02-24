@@ -17,6 +17,7 @@ void main() {
 const double windowWidth = 360;
 const double windowHeight = 640;
 
+// Creates window size depending on platform
 void setupWindow() {
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
     WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +36,11 @@ void setupWindow() {
   }
 }
 
+// A class called Counter which has the age and notifies listeners when changed
 class Counter with ChangeNotifier {
   int value = 0;
 
+  // Increase age by 1 (up to 99)
   void increment() {
     if (value < 99) {
       value += 1;
@@ -45,6 +48,7 @@ class Counter with ChangeNotifier {
     }
   }
 
+  // Decrease age by 1 (cannot go below 0)
   void decrement() {
     if (value > 0) {
       value -= 1;
@@ -52,6 +56,7 @@ class Counter with ChangeNotifier {
     }
   }
 
+  // Returns milestone message bsaed on age
   String getMilestoneMessage() {
     if (value <= 12) return "You're a child!";
     if (value <= 19) return "Teenager time!";
@@ -60,6 +65,7 @@ class Counter with ChangeNotifier {
     return "Golden years!";
   }
 
+  // Returns background color based on age
   Color getBackgroundColor() {
     if (value <= 12) return Colors.lightBlue;
     if (value <= 19) return Colors.lightGreen;
@@ -68,18 +74,22 @@ class Counter with ChangeNotifier {
     return Colors.grey;
   }
 
+  // Sets age to new age and notifies listeners
   void setAge(int newAge) {
-  value = newAge;
-  notifyListeners();
-}
+    value = newAge;
+    notifyListeners();
+  }
 
+
+  // Gets progress color based on age
   Color getProgressColor() {
     if (value <= 33) return Colors.green;
     if (value <= 67) return Colors.yellow;
     return Colors.red;
-}
+  }
 }
 
+// Base of the application and displays UI
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -122,15 +132,19 @@ class MyHomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
                 ),
                 const SizedBox(height: 20),
+
+                // Progress bar for age
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: LinearProgressIndicator(
-                    value: counter.value / 99, // Normalize age (0 to 1)
+                    value: counter.value / 99,
                     backgroundColor: Colors.grey[300],
                     valueColor: AlwaysStoppedAnimation(counter.getProgressColor()),
                   ),
                 ),
                 const SizedBox(height: 20),
+
+                // Slider for age
                 Slider(
                   value: counter.value.toDouble(),
                   min: 0,
@@ -142,11 +156,15 @@ class MyHomePage extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 20),
+
+                // Increase age button
                 ElevatedButton(
                   onPressed: () => counter.increment(),
                   child: const Text('Increase Age'),
                 ),
                 const SizedBox(height: 10),
+
+                // Decrease age button
                 ElevatedButton(
                   onPressed: () => counter.decrement(),
                   child: const Text('Decrease Age'),
