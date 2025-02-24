@@ -42,6 +42,13 @@ class Counter with ChangeNotifier {
     value += 1;
     notifyListeners();
   }
+
+  void decrement() {
+    if (value > 0) {
+      value -= 1;
+      notifyListeners();
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -76,21 +83,22 @@ class MyHomePage extends StatelessWidget {
             Consumer<Counter>(
               builder: (context, counter, child) => Text(
                 'I am ${counter.value} years old',
-                style: Theme.of(context).textTheme.headlineMedium, 
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => context.read<Counter>().increment(),
+              child: const Text('Increase Age'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => context.read<Counter>().decrement(),
+              child: const Text('Decrease Age'),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          var counter = context.read<Counter>();
-          counter.increment();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
-
