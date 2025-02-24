@@ -91,33 +91,42 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Age Counter'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Consumer<Counter>(
-              builder: (context, counter, child) => Text(
-                'I am ${counter.value} years old',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+    return Consumer<Counter>(
+      builder: (context, counter, child) {
+        return Scaffold(
+          backgroundColor: counter.getBackgroundColor(),
+          appBar: AppBar(
+            title: const Text('Age Counter'),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'I am ${counter.value} years old',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  counter.getMilestoneMessage(),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () => counter.increment(),
+                  child: const Text('Increase Age'),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () => counter.decrement(),
+                  child: const Text('Decrease Age'),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => context.read<Counter>().increment(),
-              child: const Text('Increase Age'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => context.read<Counter>().decrement(),
-              child: const Text('Decrease Age'),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
+
