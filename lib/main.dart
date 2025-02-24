@@ -67,6 +67,12 @@ class Counter with ChangeNotifier {
     if (value <= 50) return Colors.orange;
     return Colors.grey;
   }
+
+  void setAge(int newAge) {
+  value = newAge;
+  notifyListeners();
+}
+
 }
 
 
@@ -109,7 +115,18 @@ class MyHomePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   counter.getMilestoneMessage(),
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 20),
+                Slider(
+                  value: counter.value.toDouble(),
+                  min: 0,
+                  max: 99,
+                  divisions: 99,
+                  label: counter.value.toString(),
+                  onChanged: (newValue) {
+                    counter.setAge(newValue.toInt());
+                  },
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
