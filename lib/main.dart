@@ -76,9 +76,9 @@ class Counter with ChangeNotifier {
 
   // Sets age to new age and notifies listeners
   void setAge(int newAge) {
-    value = newAge;
-    notifyListeners();
-  }
+  value = newAge;
+  notifyListeners();
+}
 
 
   // Gets progress color based on age
