@@ -73,11 +73,10 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You have pushed the button this many times:'),
             Consumer<Counter>(
               builder: (context, counter, child) => Text(
-                '${counter.value}',
-                style: Theme.of(context).textTheme.headlineMedium,
+                'I am ${counter.value} years old',
+                style: Theme.of(context).textTheme.headlineMedium, 
               ),
             ),
           ],
@@ -94,3 +93,4 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
