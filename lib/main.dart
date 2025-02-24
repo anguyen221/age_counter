@@ -71,13 +71,13 @@ class Counter with ChangeNotifier {
   void setAge(int newAge) {
   value = newAge;
   notifyListeners();
-}
+  }
 
   Color getProgressColor() {
     if (value <= 33) return Colors.green;
     if (value <= 67) return Colors.yellow;
     return Colors.red;
-}
+  }
 }
 
 class MyApp extends StatelessWidget {
