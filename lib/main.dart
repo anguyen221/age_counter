@@ -39,8 +39,10 @@ class Counter with ChangeNotifier {
   int value = 0;
 
   void increment() {
-    value += 1;
-    notifyListeners();
+    if (value < 99) {
+      value += 1;
+      notifyListeners();
+    }
   }
 
   void decrement() {
@@ -49,7 +51,24 @@ class Counter with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  String getMilestoneMessage() {
+    if (value <= 12) return "You're a child!";
+    if (value <= 19) return "Teenager time!";
+    if (value <= 30) return "You're a young adult!";
+    if (value <= 50) return "You're an adult now!";
+    return "Golden years!";
+  }
+
+  Color getBackgroundColor() {
+    if (value <= 12) return Colors.lightBlue;
+    if (value <= 19) return Colors.lightGreen;
+    if (value <= 30) return Colors.yellow;
+    if (value <= 50) return Colors.orange;
+    return Colors.grey;
+  }
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
