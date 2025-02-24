@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       title: 'Age Counter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        useMaterial3: true,
+        useMaterial3: false,
       ),
       home: const MyHomePage(),
     );
